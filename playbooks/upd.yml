@@ -1,0 +1,13 @@
+---
+- name: update all packages to the latest version
+  hosts: users
+  become: yes
+  tasks:
+      - name: upd Debian
+        shell: apt -y update && apt -y upgrade
+        when:
+            - ansible_facts['distribution'] == "Debian"
+      - name: upd SUSE
+        shell: zypper refresh && zypper --non-interactive update
+        when:
+            - ansible_facts['distribution'] == "openSUSE Leap"
