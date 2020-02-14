@@ -1,0 +1,11 @@
+---
+- hosts: users
+  become: yes
+  tasks:
+      - name: ipv6 off nmcli in SUSE
+        shell: nmcli con modify 'Проводное соединение 1' ipv6.method ignore
+        when: ansible_os_family == 'Suse'
+
+      - name: ipv6 off nmcli in Debian
+        shell: nmcli con modify 'Wired connection 1' ipv6.method ignore
+        when: ansible_os_family == 'Debian'
